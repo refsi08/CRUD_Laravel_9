@@ -27,7 +27,7 @@ class Mahasiswacontroller extends Controller
         } else {
             $data = Mahasiswa::orderBy('nim', 'desc')->paginate($jumlahBaris);
         }
-        return view('mahasiswa.index')->with('data', $data);
+        return view('mahasiswa.index', compact('data'));
     }
 
     /**
@@ -77,7 +77,7 @@ class Mahasiswacontroller extends Controller
         ];
 
         Mahasiswa::create($data);
-        return redirect()->to('mahasiswa')->with('success', 'Berhasil Menyimpan Data');
+        return redirect()->route('mahasiswa.index')->with('success', 'Berhasil Menyimpan Data');
     }
 
     /**
@@ -100,7 +100,7 @@ class Mahasiswacontroller extends Controller
     public function edit($id)
     {
         $data = Mahasiswa::where('nim', $id)->first();
-        return view('mahasiswa.edit')->with('data', $data);
+        return view('mahasiswa.edit', compact('data'));
     }
 
     /**
@@ -131,7 +131,7 @@ class Mahasiswacontroller extends Controller
         ];
 
         Mahasiswa::where('nim', $id)->update($data);
-        return redirect()->to('mahasiswa')->with('success', 'Berhasil Mengubah Data');
+        return redirect()->route('mahasiswa.index')->with('success', 'Berhasil Mengubah Data');
     }
 
     /**
@@ -143,6 +143,6 @@ class Mahasiswacontroller extends Controller
     public function destroy($id)
     {
         Mahasiswa::where('nim', $id)->delete();
-        return redirect()->to('mahasiswa')->with('success', 'Berhasil Menghapus Data');
+        return redirect()->route('mahasiswa.index')->with('success', 'Berhasil Menghapus Data');
     }
 }
